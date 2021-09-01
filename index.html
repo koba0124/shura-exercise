@@ -5,7 +5,7 @@
             var pdfjsLib = window['pdfjs-dist/build/pdf'];
             async function uploadPdf(e) {
                 // PDFファイルデータをArrayBuffer型で取得
-                const fileData = await this.readFileAsync(e.files[0])
+                const fileData = await readFileAsync(e.files[0])
 
                 // PDFファイルのパース
                 const pdf = await PDFJS.getDocument({
@@ -14,7 +14,17 @@
                     cMapPacked: true,
                 })
                 alert(pdf);
-            }
+            };
+            function readFileAsync(file) {
+            return new Promise((resolve, reject) => {
+                    const reader = new FileReader()
+                    reader.onload = () => {
+                    resolve(reader.result)
+                    }
+                    reader.onerror = reject
+                    reader.readAsArrayBuffer(file)
+                })
+            };
         </script>
     </head>
     <body>
