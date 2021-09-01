@@ -45,6 +45,9 @@
             function nextPage(){
                 render(++currentPage);
             }
+            function prevPage(){
+                render(--currentPage);
+            }
                 
                 
                 
@@ -63,6 +66,8 @@
         </div>
         <div>
             <input type="button" onclick="nextPage()" value=" next ">
+
+            <input type="button" onclick="prevPage()" value=" prev ">
         </div>
     </body>
 </html>
