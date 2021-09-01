@@ -11,8 +11,7 @@
                 const fileData = await readFileAsync(e.files[0])
 
                 // PDFファイルのパース
-                pdf =
-                pdfjsLib.getDocument({
+                pdf = await pdfjsLib.getDocument({
                     data: fileData,
                     cMapUrl: './pdfjs-dist/web/cmaps/',
                     cMapPacked: true,
