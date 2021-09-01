@@ -1,7 +1,8 @@
 <html>
     <head>
+        <script src="./pdfjs-dist/build/pdf.js"></script>
         <script>
-            const pdfjsLib = import("./pdfjs-dist/build/pdf.js");
+            var pdfjsLib = window['pdfjs-dist/build/pdf'];
             async function uploadPdf(e) {
                 // PDFファイルデータをArrayBuffer型で取得
                 const fileData = await this.readFileAsync(e.target.files[0])
