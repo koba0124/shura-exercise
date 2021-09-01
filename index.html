@@ -9,13 +9,16 @@
                 const fileData = await readFileAsync(e.files[0])
 
                 // PDFファイルのパース
-                const pdf = await pdfjsLib.getDocument({
+                let pdf;
+                pdfjsLib.getDocument({
                     data: fileData,
                     cMapUrl: './pdfjs-dist/web/cmaps/',
                     cMapPacked: true,
-                })
-                alert(pdf);
-                render(pdf,1);
+                }).then(function(pdfDoc_) {
+                    pdf = pdfDoc_;
+                    render(pdf,1);
+                });
+                
             };
             function readFileAsync(file) {
             return new Promise((resolve, reject) => {
