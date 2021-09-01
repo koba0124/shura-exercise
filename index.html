@@ -43,10 +43,14 @@
                 await task.promise
             }
             function nextPage(){
-                render(++currentPage);
+                if(pdf.numPages != currentPage){
+                    render(++currentPage);
+                }
             }
             function prevPage(){
-                render(--currentPage);
+                if(1 != currentPage){
+                    render(--currentPage);
+                }
             }
                 
                 
