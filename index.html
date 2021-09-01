@@ -15,7 +15,7 @@
                     data: fileData,
                     cMapUrl: './pdfjs-dist/web/cmaps/',
                     cMapPacked: true,
-                }).then(function(pdfDoc_) {
+                }).promise.then(function(pdfDoc_) {
                     pdf = pdfDoc_;
                     render(pdf,1);
                 });
