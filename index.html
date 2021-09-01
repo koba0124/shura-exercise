@@ -2,10 +2,22 @@
     <head>
         <script>
             const pdfjsLib = import("./pdfjs-dist/build/pdf.js");
-            alert(pdfjsLib);
+            async function uploadPdf(e) {
+                // PDFファイルデータをArrayBuffer型で取得
+                const fileData = await this.readFileAsync(e.target.files[0])
+
+                // PDFファイルのパース
+                const pdf = await PDFJS.getDocument({
+                    data: fileData,
+                    cMapUrl: '/cmaps/',
+                    cMapPacked: true,
+                })
+                alert(pdf);
+            }
         </script>
     </head>
     <body>
-
+        <input type="file" accept="application/pdf" onchange="uploadPdf">
+        <canvas ref="canvas" />
     </body>
 </html>
