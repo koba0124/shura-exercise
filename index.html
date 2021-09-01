@@ -3,19 +3,22 @@
         <script src="./pdfjs-dist/build/pdf.js"></script>
         <script>
             const pdfjsLib = window['pdfjs-dist/build/pdf'];
+            let currentPage = 1;
+            let pdf;
             pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs-dist/build/pdf.worker.js"
             async function uploadPdf(e) {
                 // PDFファイルデータをArrayBuffer型で取得
                 const fileData = await readFileAsync(e.files[0])
 
                 // PDFファイルのパース
-                const pdf =
+                pdf =
                 pdfjsLib.getDocument({
                     data: fileData,
                     cMapUrl: './pdfjs-dist/web/cmaps/',
                     cMapPacked: true,
                 }).promise;
-                render(pdf,1);
+                currentPage = 1;
+                render(currentPage);
             };
             function readFileAsync(file) {
             return new Promise((resolve, reject) => {
@@ -27,7 +30,7 @@
                     reader.readAsArrayBuffer(file)
                 })
             };
-            async function render(pdf,num){
+            async function render(num){
                 const canvas = document.getElementById('display');
                 const page = await pdf.getPage(num)
                 const viewport = page.getViewport({ scale: 1 })
@@ -40,6 +43,9 @@
                 })
                 await task.promise
             }
+            function next(){
+                render(++currentPage);
+            }
                 
                 
                 
@@ -50,7 +56,14 @@
         </script>
     </head>
     <body>
-        <input type="file" accept="application/pdf" onchange="uploadPdf(this)">
-        <canvas id="display" />
+        <div>
+            <input type="file" accept="application/pdf" onchange="uploadPdf(this)">
+        </div>
+        <div>
+            <canvas id="display" />
+        </div>
+        <div>
+            <input type="button" onclick="nextPage()" value=" next ">
+        </div>
     </body>
 </html>
