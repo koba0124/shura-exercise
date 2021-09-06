@@ -1,10 +1,16 @@
 <html>
     <head>
         <script src="./pdfjs-dist/build/pdf.js"></script>
+        <script src="./easytimer.min.js"></script>
         <script>
             const pdfjsLib = window['pdfjs-dist/build/pdf'];
             let currentPage = 1;
             let pdf;
+            let timer = new Timer();
+            timer.addEventListener('secondsUpdated', function (e) {
+                countDownDisp.innerText = timer.getTimeValues().toString();
+            });
+            const countDownDisp = document.getElementById('countDown');
             pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs-dist/build/pdf.worker.js"
             async function uploadPdf(e) {
                 // PDFファイルデータをArrayBuffer型で取得
@@ -33,14 +39,15 @@
                 const canvas = document.getElementById('display');
                 const page = await pdf.getPage(num)
                 const viewport = page.getViewport({ scale: 1 })
-                canvas.height = viewport.height
-                canvas.width = viewport.width
+                //canvas.height = viewport.height
+                //canvas.width = viewport.width
                 const context = canvas.getContext('2d')
                 var task = page.render({
                     canvasContext: context,
                     viewport: viewport,
                 })
                 await task.promise
+                countDown(30);
             }
             function nextPage(){
                 if(pdf.numPages != currentPage){
@@ -51,6 +58,9 @@
                 if(1 != currentPage){
                     render(--currentPage);
                 }
+            }
+            function countDown(sec){
+                timer.start({countdown: true, startValues: {seconds: sec}});
             }
                 
                 
@@ -68,6 +78,7 @@
         <div>
             <canvas id="display" />
         </div>
+        <div id="countDown">00:00:00</div>
         <div>
             <input type="button" onclick="nextPage()" value=" next ">
 
