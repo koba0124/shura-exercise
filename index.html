@@ -7,6 +7,7 @@
             let currentPage = 1;
             let pdf;
             let timer = new Timer();
+            let isStart = false;
             timer.addEventListener('secondsUpdated', function (e) {
                 countDownDisp.innerText = timer.getTimeValues().toString();
             });
@@ -39,8 +40,8 @@
                 const canvas = document.getElementById('display');
                 const page = await pdf.getPage(num)
                 const viewport = page.getViewport({ scale: 1 })
-                //canvas.height = viewport.height
-                //canvas.width = viewport.width
+                canvas.height = viewport.height
+                canvas.width = viewport.width
                 const context = canvas.getContext('2d')
                 var task = page.render({
                     canvasContext: context,
@@ -81,6 +82,11 @@
         <div id="countDown">00:00:00</div>
         <div>
             <input type="button" onclick="nextPage()" value=" next ">
+
+            <input type="button" onclick="prevPage()" value=" prev ">
+        </div>
+        <div>
+            <input type="button" onclick="startGame()" value=" S T A R T  ">
 
             <input type="button" onclick="prevPage()" value=" prev ">
         </div>
