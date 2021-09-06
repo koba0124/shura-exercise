@@ -6,7 +6,7 @@
             const pdfjsLib = window['pdfjs-dist/build/pdf'];
             let currentPage = 1;
             let pdf;
-            let timer = new Timer();
+            let timer = new easytimer.Timer();
             let isStart = false;
             timer.addEventListener('secondsUpdated', function (e) {
                 countDownDisp.innerText = timer.getTimeValues().toString();
