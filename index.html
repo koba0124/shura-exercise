@@ -66,8 +66,8 @@
                 }
             }
             function startGame(){
-                if(pdf.numPages != currentPage){
-                    alert('最終ページだよ！');
+                if(pdf.numPages == currentPage){
+                    alert('全問終了だよ！');
                     return;
                 }
                 nextPage();
