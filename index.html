@@ -9,7 +9,7 @@
             let timer = new easytimer.Timer();
             let isStart = false;
             const resultText = document.getElementById('resultText');
-            const countDownDisp = document.getElementById('countDown');
+            const canvas = document.getElementById('display');
             timer.addEventListener('secondsUpdated', function (e) {
                 const countDownDisp = document.getElementById('countDown');
                 countDownDisp.innerText = timer.getTimeValues().toString();
