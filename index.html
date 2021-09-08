@@ -8,12 +8,14 @@
             let pdf;
             let timer = new easytimer.Timer();
             let isStart = false;
+            const resultText = document.getElementById('resultText');
+            const countDownDisp = document.getElementById('countDown');
             timer.addEventListener('secondsUpdated', function (e) {
                 const countDownDisp = document.getElementById('countDown');
                 countDownDisp.innerText = timer.getTimeValues().toString();
             });
             timer.addEventListener('targetAchieved', function (e) {
-                alert('時間切れっす');
+                timeOver();
             });
             pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs-dist/build/pdf.worker.js"
             async function uploadPdf(e) {
@@ -28,7 +30,6 @@
                 }).promise;
                 currentPage = 1;
                 await render(currentPage);
-                countDown(30);
             };
             function readFileAsync(file) {
             return new Promise((resolve, reject) => {
@@ -52,6 +53,7 @@
                     viewport: viewport,
                 })
                 await task.promise
+                canvas.style.display = "block";
             }
             function nextPage(){
                 if(pdf.numPages != currentPage){
@@ -63,10 +65,36 @@
                     render(--currentPage);
                 }
             }
+            function startGame(){
+                if(pdf.numPages != currentPage){
+                    alert('最終ページだよ！');
+                    return;
+                }
+                nextPage();
+                countDown(30);
+            }
             function countDown(sec){
                 timer.start({countdown: true, startValues: {seconds: sec}});
             }
-                
+            function putText(answer){
+                const timeStr = timer.getTimeValues().toString();
+                if(resultText.value != ''){
+                    resultText.value += '\r\n';
+                }
+                resultText.value += "【" + currentPage + "】" +  timeStr + " : " + answer;
+            }
+            function timeOver(){
+                putText("時間切れ");
+                alert("次の問題へ");
+                startGame();
+            }
+            function doAnswer(){
+                canvas.style.display = "none";
+                const answer = prompt('答えを入力してください');
+                putText(answer);
+                alert("次の問題へ");
+                startGame();
+            }
                 
                 
                 
@@ -77,21 +105,32 @@
     </head>
     <body>
         <div>
+            １．勉強したいPDFを選んでね（サーバにはアップロードされないのでご安心ください）
             <input type="file" accept="application/pdf" onchange="uploadPdf(this)">
         </div>
         <div>
             <canvas id="display" />
         </div>
-        <div id="countDown">00:00:00</div>
+        <div id="countDown" style="font-size: x-large;">00:00:00</div>
         <div>
-            <input type="button" onclick="nextPage()" value=" next ">
-
-            <input type="button" onclick="prevPage()" value=" prev ">
+            ２．問題が始まる直前までページを調整してね
+            <input type="button" onclick="prevPage()" value=" P R E V ">
+            <div style="width:100px;"></div>
+            <input type="button" onclick="nextPage()" value=" N E X T ">
         </div>
         <div>
+            ３．【START】で勉強開始だよ！
             <input type="button" onclick="startGame()" value=" S T A R T  ">
+        </div>
+        <div>
+            ４．わかったら【ANSWER】で答えよう。問題じゃないページは【SKIP】できるよ
+            <input type="button" onclick="doAnswer()" value=" A N S W E R ">
 
-            <input type="button" onclick="prevPage()" value=" prev ">
+            <input type="button" onclick="startGame()" value=" S K I P ">
+        </div>
+        <div>
+            ５．回答結果はこの下に出るよ。あとでまとめて答え合わせしよう！
+            <textarea id="resultText" style="width:400px;height:600px"></textarea>
         </div>
     </body>
 </html>
