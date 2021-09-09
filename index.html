@@ -3,13 +3,16 @@
         <script src="./pdfjs-dist/build/pdf.js"></script>
         <script src="./easytimer.min.js"></script>
         <script>
-            const pdfjsLib = window['pdfjs-dist/build/pdf'];
-            let currentPage = 1;
-            let pdf;
-            let timer = new easytimer.Timer();
-            let isStart = false;
-            const resultText = document.getElementById('resultText');
-            var canvas = document.getElementById('display');
+            window.onload = function() {
+                const pdfjsLib = window['pdfjs-dist/build/pdf'];
+                let currentPage = 1;
+                let pdf;
+                let timer = new easytimer.Timer();
+                let isStart = false;
+                const resultText = document.getElementById('resultText');
+                var canvas = document.getElementById('display');
+                pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs-dist/build/pdf.worker.js"
+            }
             timer.addEventListener('secondsUpdated', function (e) {
                 const countDownDisp = document.getElementById('countDown');
                 countDownDisp.innerText = timer.getTimeValues().toString();
@@ -17,7 +20,7 @@
             timer.addEventListener('targetAchieved', function (e) {
                 timeOver();
             });
-            pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs-dist/build/pdf.worker.js"
+            
             async function uploadPdf(e) {
                 // PDFファイルデータをArrayBuffer型で取得
                 const fileData = await readFileAsync(e.files[0])
