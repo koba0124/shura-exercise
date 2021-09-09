@@ -80,7 +80,7 @@
             }
             function countDown(sec){
                 timer.reset();
-                timer.start({countdown: true, startValues: {seconds: sec}});
+                timer.start({countdown: true, target: {seconds: sec}});
             }
             function putText(answer,timeStr){
                 if(resultText.value != ''){
