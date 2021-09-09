@@ -93,8 +93,12 @@
                 alert("次の問題へ");
                 startGame();
             }
-            function doAnswer(){
+            function hideCanvas(){
                 canvas.style.visibility  = "hidden";
+            }
+
+            function doAnswer(){
+                
                 const timeStr = timer.getTimeValues().toString();
                 const answer = prompt('答えを入力してください');
                 putText(answer,timeStr);
@@ -130,7 +134,7 @@
         </div>
         <div>
             ４．わかったら【ANSWER】で答えよう。問題じゃないページは【SKIP】できるよ
-            <input type="button" onclick="doAnswer()" value=" A N S W E R ">
+            <input type="button" onclick="hideCanvas();doAnswer();" value=" A N S W E R ">
 
             <input type="button" onclick="startGame()" value=" S K I P ">
         </div>
