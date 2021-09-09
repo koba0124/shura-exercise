@@ -79,6 +79,7 @@
                 countDown(30);
             }
             function countDown(sec){
+                timer.reset();
                 timer.start({countdown: true, startValues: {seconds: sec}});
             }
             function putText(answer,timeStr){
