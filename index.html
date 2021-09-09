@@ -74,6 +74,8 @@
             function timerNew(){
                 if(timer != null){
                     timer.stop();
+                    timer.off();
+                    timer = null;
                 }
                 timer = new easytimer.Timer();
                 timer.addEventListener('secondsUpdated', function (e) {
