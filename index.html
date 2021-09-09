@@ -72,6 +72,9 @@
                 countDown(30);
             }
             function timerNew(){
+                if(timer != null){
+                    timer.stop();
+                }
                 timer = new easytimer.Timer();
                 timer.addEventListener('secondsUpdated', function (e) {
                     const countDownDisp = document.getElementById('countDown');
