@@ -7,14 +7,7 @@
             pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs-dist/build/pdf.worker.js"
             let currentPage = 1;
             let pdf;
-            let timer = new easytimer.Timer();
-            timer.addEventListener('secondsUpdated', function (e) {
-                const countDownDisp = document.getElementById('countDown');
-                countDownDisp.innerText = timer.getTimeValues().toString();
-            });
-            timer.addEventListener('targetAchieved', function (e) {
-                timeOver();
-            });
+            let timer;
 
             let resultText;
             let canvas;
@@ -78,9 +71,19 @@
                 nextPage();
                 countDown(30);
             }
+            function timerNew(){
+                timer = new easytimer.Timer();
+                timer.addEventListener('secondsUpdated', function (e) {
+                    const countDownDisp = document.getElementById('countDown');
+                    countDownDisp.innerText = timer.getTimeValues().toString();
+                });
+                timer.addEventListener('targetAchieved', function (e) {
+                    timeOver();
+                }); 
+            }
             function countDown(sec){
-                timer.reset();
-                timer.start({countdown: true, target: {seconds: sec}});
+                timerNew();
+                timer.start({countdown: true, startValues: {seconds: sec}});
             }
             function putText(answer,timeStr){
                 if(resultText.value != ''){
