@@ -109,7 +109,7 @@
     </head>
     <body>
         <div>
-            １．勉強したいPDFを選んでね（サーバにはアップロードされないのでご安心ください）
+            １．勉強したいPDFを選んでね（サーバにはアップロードされないのでご安心ください）<br/>
             <input type="file" accept="application/pdf" onchange="uploadPdf(this)">
         </div>
         <div>
@@ -117,23 +117,23 @@
         </div>
         <div id="countDown" style="font-size: x-large;">00:00:00</div>
         <div>
-            ２．問題が始まる直前までページを調整してね
+            ２．問題が始まる直前までページを調整してね<br/>
             <input type="button" onclick="prevPage()" value=" P R E V ">
             <div style="width:100px;"></div>
             <input type="button" onclick="nextPage()" value=" N E X T ">
         </div>
         <div>
-            ３．【START】で勉強開始だよ！
+            ３．【START】で勉強開始だよ！<br/>
             <input type="button" onclick="startGame()" value=" S T A R T  ">
         </div>
         <div>
-            ４．わかったら【ANSWER】で答えよう。問題じゃないページは【SKIP】できるよ
+            ４．わかったら【ANSWER】で答えよう。問題じゃないページは【SKIP】できるよ<br/>
             <input type="button" onclick="doAnswer()" value=" A N S W E R ">
 
             <input type="button" onclick="startGame()" value=" S K I P ">
         </div>
         <div>
-            ５．回答結果はこの下に出るよ。あとでまとめて答え合わせしよう！
+            ５．回答結果はこの下に出るよ。あとでまとめて答え合わせしよう！<br/>
             <textarea id="resultText" style="width:400px;height:600px"></textarea>
         </div>
     </body>
