@@ -81,22 +81,23 @@
             function countDown(sec){
                 timer.start({countdown: true, startValues: {seconds: sec}});
             }
-            function putText(answer){
-                const timeStr = timer.getTimeValues().toString();
+            function putText(answer,timeStr){
                 if(resultText.value != ''){
                     resultText.value += '\r\n';
                 }
                 resultText.value += "【" + currentPage + "】" +  timeStr + " : " + answer;
             }
             function timeOver(){
-                putText("時間切れ");
+                const timeStr = timer.getTimeValues().toString();
+                putText("時間切れ",timeStr);
                 alert("次の問題へ");
                 startGame();
             }
             function doAnswer(){
                 canvas.style.visibility  = "hidden";
+                const timeStr = timer.getTimeValues().toString();
                 const answer = prompt('答えを入力してください');
-                putText(answer);
+                putText(answer,timeStr);
                 alert("次の問題へ");
                 startGame();
             }
